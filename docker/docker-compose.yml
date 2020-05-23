@@ -1,0 +1,76 @@
+version: '3'
+
+services:
+  web_monolith:
+    restart: always
+    build: ./../django_web_template
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+      - db
+    networks:
+      - backend
+    env_file: ./../django_web_template/.env
+    command: gunicorn django_web_template.wsgi:application -w 4 -b :8000
+
+
+  redis:
+    restart: always
+    image: redis:latest
+    expose:
+      - "6379"
+    volumes:
+      - redisdata:/data
+    networks:
+      - backend
+
+  fast_worker:
+    build: ./../django_web_template
+    command: celery worker -A django_web_template -E -l info --concurrency=1 -n fast_worker@your-org.com  -Q default,sms_report
+    env_file: ./../django_web_template/.env
+    depends_on:
+      - redis
+      - db
+    networks:
+      - backend
+
+  slow_worker:
+    build: ./../django_web_template
+    command: celery worker -A django_web_template -E -l info --concurrency=4 -n slow_worker@your-org.com  -Q send_sms,email_queue,fcm_notification
+    env_file: ./../django_web_template/.env
+    depends_on:
+      - redis
+      - db
+    networks:
+      - backend
+
+  celery-beat:
+    build: ./../django_web_template
+    command: celery -A django_web_template beat -l info
+    env_file: ./../django_web_template/.env
+    depends_on:
+      - redis
+      - db
+    networks:
+      - backend
+
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    networks:
+      - backend
+
+
+
+networks:
+  backend:
+
+volumes:
+  redisdata:
+  dbdata:

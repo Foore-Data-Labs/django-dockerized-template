@@ -1,0 +1,18 @@
+Django==3.0.5
+djangorestframework==3.11.0
+python-decouple==3.3
+psycopg2-binary==2.7.5
+phonenumbers==8.12.1
+dj-database-url==0.5.0
+django-cors-headers==3.2.1
+PyJWT==1.7.1 #JWT Auth
+coverage==5.0.4 #Test
+pyfcm==1.4.7 #Mobile Notification
+celery==4.4.2 #Celery
+django-celery-beat==2.0.0 #Celery periodic task
+sendgrid==6.3.1 #Email
+gunicorn==20.0.4 #App server
+
+redis==3.5.2 #Celery
+
+mypy==0.770 #Dev only, for type checking.

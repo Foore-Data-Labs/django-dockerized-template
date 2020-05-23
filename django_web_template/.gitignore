@@ -1,0 +1,9 @@
+*.pyc
+.env
+.vscode/
+**/.vscode/
+celerybeat-schedule
+celerybeat.pid
+*.rdb
+.coverage
+.mypy_cache/
