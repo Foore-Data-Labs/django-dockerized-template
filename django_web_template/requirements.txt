@@ -8,7 +8,7 @@ django-cors-headers==3.2.1
 PyJWT==1.7.1 #JWT Auth
 coverage==5.0.4 #Test
 pyfcm==1.4.7 #Mobile Notification
-celery==4.4.2 #Celery
+celery==5.2.2 #Celery
 django-celery-beat==2.0.0 #Celery periodic task
 sendgrid==6.3.1 #Email
 gunicorn==20.0.4 #App server
