@@ -5,7 +5,7 @@ psycopg2-binary==2.7.5
 phonenumbers==8.12.1
 dj-database-url==0.5.0
 django-cors-headers==3.2.1
-PyJWT==1.7.1 #JWT Auth
+PyJWT==2.4.0 #JWT Auth
 coverage==5.0.4 #Test
 pyfcm==1.4.7 #Mobile Notification
 celery==4.4.2 #Celery
